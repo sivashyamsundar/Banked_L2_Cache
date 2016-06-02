@@ -44,14 +44,14 @@ package L2_config;
 	
 	Vector#(num_of_banks, Ifc_l2_bank#(l2_addr_width,l2_ways,l2_word_size,l2_block_size,l2_sets)) l2bank; 
    	for (Bit#(8) i=0; i<fromInteger(valueOf(num_of_banks)); i=i+1) 
-    	l2bank[i] <- mkl2bank(i);
+    		l2bank[i] <- mkl2bank(i);
 	
 	let v_block_addr_width = valueOf(num_of_offset_bits)+3;
 	let v_addr_width = valueOf(l2_addr_width);
 	
 	Vector#(num_of_banks, FIFO#(From_l1_d#(l2_addr_width,l2_word_size))) ff_request_from_l1; 
    	for (Bit#(8) i=0; i<fromInteger(valueOf(num_of_banks)); i=i+1) 
-    	ff_request_from_l1[i] <- mkFIFO1();
+    		ff_request_from_l1[i] <- mkFIFO1();
 	
 	FIFO#(To_l1_d#(l2_addr_width,l2_word_size)) ff_response_to_l1 <- mkFIFO1();
 	FIFO#(To_Memory_d#(l2_addr_width,l2_word_size,l2_block_size)) ff_request_to_memory <- mkFIFO1();
