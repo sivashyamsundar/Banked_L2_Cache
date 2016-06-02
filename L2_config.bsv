@@ -115,24 +115,24 @@ package L2_config;
 		let k = find_bank_index(req.address);
 		$display("Index for address %h is %d",req.address,k);
 		ff_request_from_l1[k].enq(req);
-    endmethod
-    
-    method ActionValue#(To_l1_d#(l2_addr_width,l2_word_size)) response_to_l1;
-    	let x = ff_response_to_l1.first();
-    	ff_response_to_l1.deq();
-    	return x;
-    endmethod
-    
-    method ActionValue#(To_Memory_d#(l2_addr_width,l2_word_size,l2_block_size)) request_to_memory;
+	endmethod
+	
+	method ActionValue#(To_l1_d#(l2_addr_width,l2_word_size)) response_to_l1;
+		let x = ff_response_to_l1.first();
+		ff_response_to_l1.deq();
+		return x;
+	endmethod
+	
+	method ActionValue#(To_Memory_d#(l2_addr_width,l2_word_size,l2_block_size)) request_to_memory;
 		//$display("Forwarding request_to_memory");
 		rg_mem_call <= True;
 		ff_request_to_memory.deq();
 		return ff_request_to_memory.first();
-    endmethod
-
-    method Action response_from_memory(From_Memory_d#(l2_addr_width,l2_word_size,l2_block_size) resp);
-      	ff_response_from_memory.enq(resp);
-    endmethod
+	endmethod
+	
+	method Action response_from_memory(From_Memory_d#(l2_addr_width,l2_word_size,l2_block_size) resp);
+	      	ff_response_from_memory.enq(resp);
+	endmethod
     
   endmodule
 endpackage
